@@ -3,6 +3,7 @@ https://phpdocker.io/generator
 
 //create a lavarel projec base on lavarel version
 composer create-project --prefer-dist laravel/laravel=5.2.* chapter-01
+composer create-project laravel/laravel=5.6.12 project --prefer-dist 
 
 //get into erminal to fire artisan command
 docker-compose exec php-fpm bash
@@ -13,6 +14,7 @@ php  artisan h  make:controller
 sample 
 php  artisan make:controller BandController //create a controller
 php  artisan make:model Band //create a model
+php  artisan  make:model  Bike -m //use -m to create migration together with model creation
 
 //check DB connection
 php artisan tinker 
@@ -27,3 +29,12 @@ docker-compose exec mysql mysql -ularavel-angular-book -p123456
 
 //create a CRUD API controller
 php artisan make:controller BandController --resource 
+
+//insall swagger
+composer require "darkaonline/l5-swagger" 
+composer require "darkaonline/l5-swagger:5.8.*" --with-all-dependencies //for laravel 5
+php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"  //to publish the package
+
+php  artisan  l5-swagger:generate //publish swagger documentation
+//helper link to resolve problem with swagger doc generation
+https://www.cnblogs.com/mouseleo/p/12074708.html
