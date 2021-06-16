@@ -38,3 +38,4 @@ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"  //to
 php  artisan  l5-swagger:generate //publish swagger documentation
 //helper link to resolve problem with swagger doc generation
 https://www.cnblogs.com/mouseleo/p/12074708.html
+Stop page 91

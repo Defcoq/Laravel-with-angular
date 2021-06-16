@@ -3,22 +3,22 @@ services:
 
     mysql:
       image: mysql:5.7
-      container_name: chapter-04-mysql
+      container_name: chapter-05-mysql
       working_dir: /application
       volumes:
         - .:/application
         - ./storage-db:/var/lib/mysql
       environment:
         - MYSQL_ROOT_PASSWORD=123456
-        - MYSQL_DATABASE=chapter-04
-        - MYSQL_USER=chapter-04
+        - MYSQL_DATABASE=chapter-05
+        - MYSQL_USER=chapter-05
         - MYSQL_PASSWORD=123456
       ports:
         - "8083:3306"
 
     webserver:
       image: nginx:alpine
-      container_name: chapter-04-webserver
+      container_name: chapter-05-webserver
       working_dir: /application
       volumes:
           - .:/application
@@ -28,7 +28,7 @@ services:
 
     php-fpm:
       build: phpdocker/php-fpm
-      container_name: chapter-04-php-fpm
+      container_name: chapter-05-php-fpm
       working_dir: /application
       volumes:
         - ./project:/application
