@@ -1,0 +1,29 @@
+//generate  laravel docker artifact
+https://phpdocker.io/generator
+
+//create a lavarel projec base on lavarel version
+composer create-project --prefer-dist laravel/laravel=5.2.* chapter-01
+
+//get into erminal to fire artisan command
+docker-compose exec php-fpm bash
+//for esemple
+php artisan list 
+php  artisan h  migrate // see help for migrate command 
+php  artisan h  make:controller
+sample 
+php  artisan make:controller BandController //create a controller
+php  artisan make:model Band //create a model
+
+//check DB connection
+php artisan tinker 
+DB::connection()->getPdo(); 
+
+//create a migraion file
+php artisan make:migration create_bands_table  //create migration file in database/migrations
+php artisan migrate  //to create migration
+php artisan db:seed //To seed
+//commad to enter mysql inside docker container
+docker-compose exec mysql mysql -ularavel-angular-book -p123456 
+
+//create a CRUD API controller
+php artisan make:controller BandController --resource 
