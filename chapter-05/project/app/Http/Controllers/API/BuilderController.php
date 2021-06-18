@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use  App\Builder;
-
+use Validator;
 class BuilderController extends Controller
 {
     /**
@@ -44,13 +44,25 @@ class BuilderController extends Controller
      *     path="/api/builders",
      *     tags={"Builders"},
      *     summary="Create Builder",
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Builder"),
-     * 			description="Json format",
-     * 		),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=201,
      *          description="Success: A Newly Created Builder",
@@ -72,6 +84,16 @@ class BuilderController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',            
+            'location'=> 'required'
+            ]);
+            
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);    
+        }
+
         $createBuilder = Builder::create($request->all());
         return $createBuilder;
     }
@@ -90,7 +112,9 @@ class BuilderController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          type="integer",
+    *          @OA\Schema(
+     *              type="integer"
+     *          ),
      *          description="Display the specified Builder by id.",
      * 		),
      *     @OA\Response(
@@ -129,16 +153,30 @@ class BuilderController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          type="integer",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
      *          description="Update the specified Builder by id.",
      * 		),
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Builder"),
-     * 			description="Json format",
-     * 		),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=200,
      *          description="Success: Return the Builder updated",
@@ -181,8 +219,10 @@ class BuilderController extends Controller
      *         in="path",
      *         name="id",
      *         required=true,
-     *         type="integer",
-     *         format="int64"
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
      *     ),
      *     @OA\Response(
      *         response=404,

@@ -15,6 +15,8 @@ sample
 php  artisan make:controller BandController //create a controller
 php  artisan make:model Band //create a model
 php  artisan  make:model  Bike -m //use -m to create migration together with model creation
+php artisan migrate:fresh --seed  //migrate and refresh
+run "composer dump-autoload" when class not found 
 
 //check DB connection
 php artisan tinker 
@@ -29,6 +31,7 @@ docker-compose exec mysql mysql -ularavel-angular-book -p123456
 
 //create a CRUD API controller
 php artisan make:controller BandController --resource 
+php artisan make:controller API/BuilderController --api 
 
 //insall swagger
 composer require "darkaonline/l5-swagger" 
@@ -38,4 +41,7 @@ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"  //to
 php  artisan  l5-swagger:generate //publish swagger documentation
 //helper link to resolve problem with swagger doc generation
 https://www.cnblogs.com/mouseleo/p/12074708.html
-Stop page 91
+https://github.com/DarkaOnLine/L5-Swagger/blob/634469942ad015199aea33eb5f2ce25b97abec1b/tests/storage/annotations/OpenApi/Anotations.php
+https://github.com/zircote/swagger-php/blob/master/Examples/example-object/example-object.php
+https://github.com/zircote/swagger-php/blob/master/Examples/petstore.swagger.io/controllers/PetController.php
+Stop page 130

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Item;
+use Validator;
 
 class ItemController extends Controller
 {
@@ -48,13 +49,25 @@ class ItemController extends Controller
      *     path="/api/items",
      *     tags={"Items"},
      *     summary="Create Item",
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Item"),
-     * 			description="Json format",
-     * 		),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=201,
      *          description="Success: A Newly Created Item",
@@ -76,6 +89,16 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'type' => 'required',
+            'name' => 'required',            
+            'company'=> 'required',
+            'bike_id'=> 'required'
+            ]);
+            
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);    
+        }
         $createItem = Item::create($request->all());
         return  $createItem;
     }
@@ -94,7 +117,9 @@ class ItemController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          type="integer",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
      *          description="Display the specified Item by id.",
      * 		),
      *     @OA\Response(
@@ -133,16 +158,30 @@ class ItemController extends Controller
      *          name="id",
      *          in="path",
      *          required=true,
-     *          type="integer",
+     *          @OA\Schema(
+     *              type="integer"
+     *          ),
      *          description="Update the specified Item by id.",
      * 		),
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Item"),
-     * 			description="Json format",
-     * 		),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=200,
      *          description="Success: Return the Item updated",
@@ -186,8 +225,10 @@ class ItemController extends Controller
      *         in="path",
      *         name="id",
      *         required=true,
-     *         type="integer",
-     *         format="int64"
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
      *     ),
      *     @OA\Response(
      *         response=404,

@@ -4,6 +4,13 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException as UnauthorizedHttpException;
+use Tymon\JWTAuth\Exceptions\JWTException as JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException as TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException as TokenInvalidException;
+
+
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +55,27 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // This will replace our 404 response from the MVC to a JSON response.
+        if ($exception instanceof ModelNotFoundException
+            && $request->wantsJson() // Enable header Accept: application/json to see the proper error msg
+        ) {
+            return response()->json(['error' => 'Resource not found'], 404);
+        }
+
+        if ($exception instanceof UnauthorizedHttpException) {
+            return response()->json(['error' => 'Token not provided'], 401);
+        }
+
+        if ($exception instanceof JWTException) {
+            return response()->json(['error' => $exception], 400);
+        }
+
+        if ($exception instanceof TokenExpiredException) {
+            return response()->json(['token_expired'], $exception->getStatusCode());
+        } else if ($exception instanceof TokenInvalidException) {
+            return response()->json(['token_invalid'], $exception->getStatusCode());
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -34,17 +34,31 @@ class RatingController extends Controller
      *          in="path",
      *          name="id",
      *          required=true,
-     *          type="integer",
-     *          format="int64",
+    *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          ),
      * 			description="Bike Id"
      * 		),
-     *    @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Rating"),
-     * 			description="Json format",
-     * 		 ),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=201,
      *          description="Success: A Newly Created Rating",

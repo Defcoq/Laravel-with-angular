@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Bike;
-//use Validator;
+use Validator;
 //use App\Http\Resources\BikesResource;
 
 class BikeController extends Controller
@@ -63,13 +63,25 @@ class BikeController extends Controller
      *     path="/api/bikes",
      *     tags={"Bikes"},
      *     summary="Create Bike",
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Bike"),
-     * 			description="Json format",
-     * 		),
+     *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=201,
      *          description="Success: A Newly Created Bike",
@@ -98,7 +110,7 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        /* $validator = Validator::make($request->all(), [
+         $validator = Validator::make($request->all(), [
             'make' => 'required',
             'model' => 'required',
             'year'=> 'required',
@@ -110,7 +122,7 @@ class BikeController extends Controller
         }
 
        
-        $createBike = Bike::create([
+    /*    $createBike = Bike::create([
             'user_id' => $request->user()->id,
             'make' => $request->make,
             'model' => $request->model,
@@ -189,13 +201,25 @@ class BikeController extends Controller
      *          ),
      *          description="Update the specified bike by id.",
      * 		),
-     *     @OA\Parameter(
-     * 			name="body",
-     * 			in="body",
-     * 			required=true,
-     * 			@OA\Schema(ref="#/definitions/Bike"),
-     * 			description="Json format",
-     * 		),
+    *   @OA\RequestBody(
+     *       required=false,
+     *       @OA\MediaType(
+     *           mediaType="application/x-www-form-urlencoded",
+     *           @OA\Schema(
+     *               type="object",
+     *               @OA\Property(
+     *                   property="name",
+     *                   description="Updated name of the pet",
+     *                   type="string"
+     *               ),
+     *               @OA\Property(
+     *                   property="status",
+     *                   description="Updated status of the pet",
+     *                   type="string"
+     *               ),
+     *           )
+     *       )
+     *   ),
      *     @OA\Response(
      *          response=200,
      *          description="Success: Return the Bike updated",
