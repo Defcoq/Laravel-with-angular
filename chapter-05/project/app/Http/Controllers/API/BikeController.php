@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Bike;
 use Validator;
-//use App\Http\Resources\BikesResource;
+use App\Http\Resources\BikesResource;
 
 class BikeController extends Controller
 {
@@ -122,7 +122,7 @@ class BikeController extends Controller
         }
 
        
-    /*    $createBike = Bike::create([
+        $createBike = Bike::create([
             'user_id' => $request->user()->id,
             'make' => $request->make,
             'model' => $request->model,
@@ -131,9 +131,9 @@ class BikeController extends Controller
             'picture' => $request->picture,
         ]);
 
-        return new BikesResource($createBike);*/
-        $createBike = Bike::create($request->all());
-        return $createBike;
+        return new BikesResource($createBike);
+      //  $createBike = Bike::create($request->all());
+      //  return $createBike;
     }
 
     /**
@@ -173,12 +173,12 @@ class BikeController extends Controller
      * 	   }
      * ),
      */
-    //public function show(Bike $bike)
-    public function show($id)
+    public function show(Bike $bike)
+    //public function show($id)
     {
-        // return new BikesResource($bike);
-        $showBikeById = Bike::with(['items', 'builder', 'garages'])->findOrFail($id);
-        return $showBikeById;
+         return new BikesResource($bike);
+      /*  $showBikeById = Bike::with(['items', 'builder', 'garages'])->findOrFail($id);
+        return $showBikeById;*/
     }
 
     /**
@@ -246,20 +246,20 @@ class BikeController extends Controller
      * 		}
      * ),
      */
-   //public function update(Request $request, Bike $bike)
-   public function update(Request $request, $id)
+   public function update(Request $request, Bike $bike)
+  // public function update(Request $request, $id)
     {
         // check if currently authenticated user is the bike owner
-        /* if ($request->user()->id !== $bike->user_id) {
+         if ($request->user()->id !== $bike->user_id) {
             return response()->json(['error' => 'You can only edit your own bike.'], 403);
         }
 
         $bike->update($request->only(['make', 'model', 'year', 'mods', 'picture']));
 
-        return new BikesResource($bike);*/
-        $updateBikeById = Bike::findOrFail($id);
+        return new BikesResource($bike);
+       /* $updateBikeById = Bike::findOrFail($id);
         $updateBikeById->update($request->all());
-        return $updateBikeById;
+        return $updateBikeById;*/
     }
 
     /**

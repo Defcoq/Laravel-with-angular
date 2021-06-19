@@ -132,11 +132,14 @@ class BuilderController extends Controller
      *      )
      * ),
      */
-    public function show($id)
+    public function show(Builder $builder)
     {
-        $showBuilderById = Builder::with('Bike')->findOrFail($id);
-        return $showBuilderById;
+        // $showBuilderById = Builder::with('Bike')->findOrFail($id);
+        // return $showBuilderById;
+
+        return new BuildersResource($builder);
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -198,8 +201,19 @@ class BuilderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'description' => 'required',            
+            'location'=> 'required'
+            ]);
+            
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);    
+        }
+        
         $updateBuilderById = Builder::findOrFail($id);
         $updateBuilderById->update($request->all());
+
         return $updateBuilderById;
     }
 

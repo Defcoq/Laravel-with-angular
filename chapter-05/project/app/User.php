@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * @OA\Schema(
  *     schema="User",
@@ -29,7 +30,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * )
  */
 
-class User extends Authenticatable //implements JWTSubject
+class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
@@ -56,7 +57,7 @@ class User extends Authenticatable //implements JWTSubject
      *
      * @var array
      */
-   /* public function getJWTIdentifier()
+    public function getJWTIdentifier()
     {
       return $this->getKey();
     }
@@ -64,7 +65,7 @@ class User extends Authenticatable //implements JWTSubject
     public function getJWTCustomClaims()
     {
       return [];
-    }*/
+    }
 
     /**
      * Relationship.

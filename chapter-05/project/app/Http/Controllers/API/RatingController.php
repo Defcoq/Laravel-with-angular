@@ -15,10 +15,10 @@ class RatingController extends Controller
      *
      * @return Unauthorized
      */
- /*   public function __construct()
+    public function __construct()
     {
       $this->middleware('auth:api');
-    }*/
+    }
     
     /**
      * Store a newly created resource in storage.
@@ -87,7 +87,7 @@ class RatingController extends Controller
      */
     public function store(Request $request, Bike $bike)
     {
-     /* $rating = Rating::firstOrCreate(
+      $rating = Rating::firstOrCreate(
         [
             'user_id' => $request->user()->id,
             'bike_id' => $bike->id,
@@ -95,6 +95,6 @@ class RatingController extends Controller
         ['rating' => $request->rating]
       );
 
-      return new RatingResource($rating);*/
+      return new RatingResource($rating);
     }
 }
