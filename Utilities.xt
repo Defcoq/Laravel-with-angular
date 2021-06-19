@@ -44,4 +44,13 @@ https://www.cnblogs.com/mouseleo/p/12074708.html
 https://github.com/DarkaOnLine/L5-Swagger/blob/634469942ad015199aea33eb5f2ce25b97abec1b/tests/storage/annotations/OpenApi/Anotations.php
 https://github.com/zircote/swagger-php/blob/master/Examples/example-object/example-object.php
 https://github.com/zircote/swagger-php/blob/master/Examples/petstore.swagger.io/controllers/PetController.php
-Stop page 130
+
+//installing JWT
+//open project/composer.json and add to require
+"tymon/jwt-auth": "1.0.*"
+run composer update
+insall the package=>php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider" 
+Generate a secret =>  php artisan jwt:secret 
+
+
+Stop page 188
