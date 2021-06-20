@@ -52,5 +52,9 @@ run composer update
 insall the package=>php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider" 
 Generate a secret =>  php artisan jwt:secret 
 
+//use CORS in laravel
+composer require barryvdh/laravel-cors 
 
-Stop page 188
+
+
+Stop page 228

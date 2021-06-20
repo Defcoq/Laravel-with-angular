@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use  App\Builder;
 use Validator;
+use App\Http\Resources\BuildersResource;
 class BuilderController extends Controller
 {
     /**

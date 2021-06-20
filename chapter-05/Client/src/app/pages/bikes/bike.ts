@@ -10,6 +10,7 @@ export class Bike {
   picture: string;
   user_id: number;
   builder_id: number;
+  average_rating?: number;
   user?: User;
   builder?: Builder;
   items?: any;

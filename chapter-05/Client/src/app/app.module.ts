@@ -13,6 +13,7 @@ import { NavComponent } from './layout/nav/nav.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpErrorHandler } from './pages/shared/_services/http-handle-error.service';
 import { AppHttpInterceptorService } from './pages/shared/_services/http-interceptor.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AppHttpInterceptorService } from './pages/shared/_services/http-interce
     BikesModule,
     BuildersModule,
     AuthModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    NgbModule.forRoot()
   ],
   providers: [Title,HttpErrorHandler,{
     provide: HTTP_INTERCEPTORS,

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BuildersService } from '../_services/builder.service';
+
+// App imports
+import { Builder } from './../builder';
 
 @Component({
   selector: 'app-builder-list',
@@ -6,10 +10,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./builder-list.component.scss']
 })
 export class BuilderListComponent implements OnInit {
+    // Using Builder Model class
+    builders: Builder[];
+    isLoading: Boolean = false;
 
-  constructor() { }
+  constructor(private builderService: BuildersService) { }
 
   ngOnInit() {
+    // Get builder detail
+    this.getBuilders();
   }
+
+  getBuilders(): void {
+    this.isLoading = true;
+    this.builderService.getBuilders()
+      .subscribe(
+        response => this.handleResponse(response),
+        error => this.handleError(error));
+  }
+
+  protected handleResponse(response: Builder[]) {
+    this.isLoading = false,
+    this.builders = response;
+  }
+  protected handleError(error: any) {
+    this.isLoading = false,
+    console.error(error);
+  }
+
 
 }
