@@ -6,6 +6,11 @@ composer create-project --prefer-dist laravel/laravel=5.2.* chapter-01
 composer create-project laravel/laravel=5.6.12 project --prefer-dist 
 
 //get into erminal to fire artisan command
+//to kill all docker container
+docker-compose kill 
+// to launch project 
+docker-compose up -d 
+//to go to the command line and fire laravel command
 docker-compose exec php-fpm bash
 //for esemple
 php artisan list 
@@ -56,5 +61,12 @@ Generate a secret =>  php artisan jwt:secret
 composer require barryvdh/laravel-cors 
 
 
+//error =>"/application/storage/logs/laravel.log" could not be opened in append mode: failed to open stream: Permission denied
+docker-compose run --rm --no-deps php-fpm php artisan cache:clear
+docker-compose run --rm --no-deps php-fpm chmod -R 777 storage/
+docker-compose run --rm --no-deps php-fpm composer dump-autoload
 
+//error=>No application encryption key has been specified.
+php artisan key:generate
+php artisan config:cache
 Stop page 228

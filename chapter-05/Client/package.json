@@ -11,8 +11,8 @@
     "sasslint": "./node_modules/.bin/stylelint \"src/**/*.scss\" --syntax scss || echo \"Ops: Stylelint faild for some file(s).\"",
     "tslint": "./node_modules/.bin/tslint --project tsconfig.json || echo \"Ops: TSlint faild for some file(s).\"",
     "e2e": "ng e2e",
-    "build:docker":"npm run build && npm run docker:image",
-    "docker:image":"./_scripts/create-docker-image.sh"
+    "build:docker": "npm run build && npm run docker:image",
+    "docker:image": "./_scripts/create-docker-image.sh"
   },
   "private": true,
   "dependencies": {
